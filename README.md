@@ -1,7 +1,9 @@
 # WebSocket.Net
 
-This is a sample of a websocket. It's a chat 
+This is a sample of a websocket. It's a chat. It also censure bad words and replace a message by '\*\*\*\*\*'
 
-## TO DO
+## More buffer
 
-Validate message type or message size, or serialize/deserialize to domain entities, which is something you would probably want to do in a real application.
+This buffer is tiny and simple. But there are two ways to manage bigger buffers.
+- Dynamic buffer
+- Fragment buffer
