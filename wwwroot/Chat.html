@@ -1,19 +1,30 @@
 <h1>My web socket application</h1>
 <div id="messages"></div>
+<span>Username</span>
+<input id="username">
+<span>Admin</span>
+<input id="admin" type="checkbox">
 <input id="chatbox">
 <script>
     const socket = new WebSocket("ws://localhost:5098");
     socket.onmessage = function(event)
     {
         const messages = document.getElementById('messages');
-        messages.innerHTML += `<p>${event.data}</p>`
+        console.log(event.data);
+        const data = JSON.parse(event.data)
+        messages.innerHTML += `<p `+ (data.Admin ? 'style="color:red"' : '') +`> ${data.User} says: ${data.Message}</p>`
     }
 
     document.getElementById("chatbox").addEventListener("keyup", function(event)
     {
         if(event.key === "Enter")
         {
-            socket.send(event.target.value);
+            const data = JSON.stringify({ 
+                Message : event.target.value,
+                User : document.getElementById('username').value,
+                Admin: document.getElementById('admin').checked
+            });
+            socket.send(data);
             event.target.value = "";
         }
     });
